@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        GIT_SSH_COMMAND = "ssh -o StrictHostKeyChecking=no -i /var/jenkins_home/.ssh/id_rsa_git"
-    }
-
     stages {
         stage('信息收集') {
             steps {
