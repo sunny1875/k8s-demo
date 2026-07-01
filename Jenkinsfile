@@ -39,10 +39,17 @@ pipeline {
                     echo ""
                     echo "--- 测试容器启动 ---"
                     docker run -d --name test-${BUILD_NUMBER} -p 8888:8080 ${IMAGE_NAME}:${IMAGE_TAG}
-                    sleep 3
                     echo ""
-                    echo "--- 访问测试 ---"
-                    curl -s http://localhost:8888
+                    echo "--- 等待服务启动并访问测试 ---"
+                    for i in 1 2 3 4 5; do
+                        sleep 2
+                        RESULT=$(curl -s http://localhost:8888 2>/dev/null)
+                        if [ -n "$RESULT" ]; then
+                            echo "访问成功: $RESULT"
+                            break
+                        fi
+                        echo "等待中... ($i/5)"
+                    done
                     docker rm -f test-${BUILD_NUMBER} || true
                 '''
             }
