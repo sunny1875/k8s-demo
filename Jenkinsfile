@@ -41,7 +41,7 @@ pipeline {
                     docker run -d --name test-${BUILD_NUMBER} -p 8888:8080 ${IMAGE_NAME}:${IMAGE_TAG}
                     echo ""
                     echo "--- 等待服务启动并访问测试 ---"
-                    for i in 1 2 3 4 5; do
+                    for i in 1 2 3 4 5 6 7 8 9 10; do
                         sleep 1
                         RESULT=$(curl -s http://localhost:8888 2>/dev/null) || true
                         if [ -n "$RESULT" ]; then
