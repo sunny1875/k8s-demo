@@ -42,8 +42,8 @@ pipeline {
                     echo ""
                     echo "--- 等待服务启动并访问测试 ---"
                     for i in 1 2 3 4 5; do
-                        sleep 2
-                        RESULT=$(curl -s http://localhost:8888 2>/dev/null)
+                        sleep 1
+                        RESULT=$(curl -s http://localhost:8888 2>/dev/null) || true
                         if [ -n "$RESULT" ]; then
                             echo "访问成功: $RESULT"
                             break
